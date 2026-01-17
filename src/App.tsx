@@ -11,18 +11,17 @@ import Footer from './components/Footer'
 export let lenis: Lenis | null = null
 
 function App() {
-  const rafRef = useRef<number>()
+  const rafRef = useRef<number | undefined>(undefined)
 
   useEffect(() => {
     lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      smoothTouch: false,
     })
 
     function raf(time: number) {
-      lenis.raf(time)
+      lenis?.raf(time)
       rafRef.current = requestAnimationFrame(raf)
     }
 
